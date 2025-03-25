@@ -28,6 +28,7 @@ public class Patron {
         return contactInfo;
     }
 
+    //Will be required for recommendations
     public List<Book> getBorrowedBooks() {
         return borrowedBooks;
     }

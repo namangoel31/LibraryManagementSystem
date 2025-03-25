@@ -1,16 +1,16 @@
 public class Book {
-    String title;
-    String author;
-    String ISBN;
-    int publicationYear;
-    private boolean available;
+    private String title;
+    private String author;
+    private String ISBN;
+    private int publicationYear;
+    private boolean isAvailable;
 
     public Book(String title, String author, String ISBN, int publicationYear) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.publicationYear = publicationYear;
-        available = true;
+        isAvailable = true;
     }
 
     public void display() {
@@ -33,7 +33,7 @@ public class Book {
     }
 
     public boolean getAvailable() {
-        return available;
+        return isAvailable;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class Book {
     }
 
     public void setAvailable(boolean available) {
-        this.available = available;
+        this.isAvailable = available;
     }
 }

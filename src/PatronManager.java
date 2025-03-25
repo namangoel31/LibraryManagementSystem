@@ -63,19 +63,22 @@ public class PatronManager implements PatronInterface{
     public void showCurrentlyBorrowed(String id) {
         Patron patron = patrons.get(id);
         if (patron != null) {
+            System.out.println("----- Books Borrowed by Patron: " + patron.getName() + "with Id: "+ patron.getId() + "-----");
             patron.displayCurrentlyBorrowed();
         } else {
             System.out.println("Patron not found: " + id);
         }
+        System.out.println("--------------------------------------------------------");
     }
 
     public void showAllPatrons() {
         Map<String, Patron> patrons = this.patrons;
-        System.out.println("Patron List:");
+        System.out.println("------- Start of Patron List ---------");
         for (String patronName : patrons.keySet()) {
             System.out.println("PatronName: " + patronName);
             System.out.println("  " + patrons.get(patronName));
         }
+        System.out.println("------- End of Patron List ---------");
     }
 
     @Override

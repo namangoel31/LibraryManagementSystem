@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookSearch {
-    public static List<Book> searchBooks(InventoryManager inventory, String query) {
+    static List<Book> searchBooks(InventoryManager inventory, String query) {
         Map<String, Map<String, Book>> inv = inventory.getInv();
         List<Book> result = new ArrayList<>();
         for (String category : inv.keySet()) {
@@ -16,7 +16,7 @@ public class BookSearch {
         return result;
     }
 
-    public static Book searchBookByISBN(InventoryManager inventory, String isbn) {
+    static Book searchBookByISBN(InventoryManager inventory, String isbn) {
         Map<String, Map<String, Book>> inv = inventory.getInv();
         for (String category : inv.keySet()) {
             if (inv.get(category).containsKey(isbn)) {

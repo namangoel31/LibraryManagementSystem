@@ -20,6 +20,7 @@ public class Library {
     }
 
     public List<Book> searchBooks(String titleOrAuthor) {
+        System.out.println("------ Found following matches for: " + titleOrAuthor +" -------");
         return BookSearch.searchBooks(this.inventory, titleOrAuthor);
     }
 
@@ -29,13 +30,14 @@ public class Library {
 
     public void showAllBooks() {
         Map<String, Map<String, Book>> inv = this.inventory.getInv();
-        System.out.println("Inventory:");
+        System.out.println("--------- Start of Inventory ----------");
         for (String category : inv.keySet()) {
             System.out.println("Category: " + category);
             for (Book book : inv.get(category).values()) {
                 System.out.println("  " + book);
             }
         }
+        System.out.println("--------- End of Inventory ---------");
     }
 
 }

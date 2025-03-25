@@ -2,10 +2,10 @@ import java.util.Map;
 
 public class TransactionBooth implements BookIssueReturn{
 
-    private final InventorySearch inventorySearch;
+    private InventoryGetAll inventorySearch;
     private final PatronInterface patronManager;
 
-    public TransactionBooth(InventorySearch inventory) {
+    public TransactionBooth(InventoryGetAll inventory) {
         this.inventorySearch = inventory;
         this.patronManager = PatronManager.getInstance();
     }

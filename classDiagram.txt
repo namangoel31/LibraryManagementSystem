@@ -1,0 +1,122 @@
+@startuml
+
+'=============================
+' Classes and Interfaces
+'=============================
+class Book {
+    - title: String
+    - author: String
+    - ISBN: String
+    - publicationYear: int
+    - available: boolean
+    + getTitle(): String
+    + getAuthor(): String
+    + getIsbn(): String
+    + getAvailable(): boolean
+    + setAvailable(boolean)
+}
+
+class BookFactory {
+    + createBook(title, author, ISBN, publicationYear): Book
+}
+
+interface BookIssueReturn {
+    + issueBook(Book): boolean
+    + returnBook(Book): boolean
+}
+
+class BookSearch {
+    + searchBooks(InventoryManager, String): List<Book>
+    + searchBookByISBN(InventoryManager, String): Book
+}
+
+interface Inventory{
+    + addBook(Book)
+    + removeBook(Book)
+}
+
+interface InventoryGetAll {
+    + getInv(): Map<String, Map<String, Book>>
+}
+
+class InventoryManager {
+    - instance: InventoryManager
+    - inv: Map<String, Map<String, Book>>
+    + getInstance(): InventoryManager
+    + addBook(Book)
+    + removeBook(Book)
+    + getInv(): Map<String, Map<String, Book>>
+}
+
+class Library {
+    - branch: String
+    - inventory: InventoryManager
+    + searchBooks(String): List<Book>
+    + searchBookByISBN(String): Book
+    + showAllBooks()
+}
+
+class Patron {
+    - id: String
+    - name: String
+    - contactInfo: String
+    - borrowedBooks: List<Book>
+    - historyOfBooks: List<Book>
+    + getId(): String
+    + addBorrowedBook(Book)
+    + returnBook(Book)
+    + displayBorrowingHistory()
+    + displayCurrentlyBorrowed()
+}
+
+interface PatronInterface {
+    + assignBookToPatron(Book, String)
+    + removeBookFromPatron(Book, String)
+}
+
+class PatronManager {
+    - instance: PatronManager
+    - patrons: Map<String, Patron>
+    + getInstance(): PatronManager
+    + addPatron(Patron)
+    + removePatron(Patron)
+    + getPatron(String): Patron
+    + updatePatronInfo(String, String, String)
+    + showBorrowingHistory(String)
+    + showCurrentlyBorrowed(String)
+    + showAllPatrons()
+    + assignBookToPatron(Book, String)
+    + removeBookFromPatron(Book, String)
+}
+
+class TransactionBooth {
+    - inventorySearch: InventoryGetAll
+    - patronInterface: PatronInterface
+    + issueBook(Book): boolean
+    + returnBook(Book): boolean
+    + issueBookToPatron(String, String)
+    + returnBookFromPatron(String, String)
+}
+
+
+
+
+'=============================
+' Relationships
+'=============================
+Library --> InventoryManager : has a
+Library --> BookSearch : uses a
+BookFactory ..> Book : "creates"
+InventoryManager -|> InventoryGetAll : implements
+InventoryManager -|> Inventory : implements
+InventoryManager "1" o-- "*" Book : has a
+BookSearch ..> InventoryGetAll : searches in
+TransactionBooth ..> InventoryGetAll : has a
+TransactionBooth ..> PatronInterface : uses a
+BookIssueReturn <|-- TransactionBooth : implements
+TransactionBooth ..> Book : uses a
+PatronManager -|> PatronInterface : implements
+PatronManager --> Patron : has a
+Patron --> Book : has a
+
+@enduml

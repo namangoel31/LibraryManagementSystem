@@ -25,12 +25,14 @@ public class Main {
 
         TransactionBooth transactionBooth = new TransactionBooth(inv);
 
-//        transactionBooth.issueBook(book1);
-
         library.showAllBooks();
 
         transactionBooth.issueBookToPatron(book1, "P001");
+        library.showAllBooks();
+
         transactionBooth.issueBookToPatron(book1, "P002");
+        transactionBooth.issueBookToPatron(book5, "P002");
+        library.showAllBooks();
         // Checking Alice's borrowing history
         patronManager.showCurrentlyBorrowed("P001");
 
@@ -45,7 +47,12 @@ public class Main {
         patronManager.showBorrowingHistory("P001");
 
         library.showAllBooks();
-        patronManager.showAllPatrons();
 
+        inv.removeBook(book3);
+        library.showAllBooks();
+
+        patronManager.showAllPatrons();
+        patronManager.removePatron(patron1);
+        patronManager.showAllPatrons();
     }
 }
