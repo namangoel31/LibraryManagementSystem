@@ -1,35 +1,31 @@
-// SINGLETON PATTERN
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class Inventory {
-    private static Inventory instance;  // Static instance variable
+public class InventoryManager implements Inventory, InventorySearch{
+    private static InventoryManager instance;
 
     private Map<String, Map<String, Book>> inv;
 
-    // Private constructor to prevent direct instantiation
-    private Inventory() {
+    private InventoryManager() {
         inv = new HashMap<>();
         inv.put("available", new HashMap<>());
         inv.put("notAvailable", new HashMap<>());
     }
 
-    // Public method to provide a global access point
-    public static Inventory getInstance() {
-        if (instance == null) {  // Lazy initialization
-            instance = new Inventory();
+    public static InventoryManager getInstance() {
+        if (instance == null) {
+            instance = new InventoryManager();
         }
         return instance;
     }
 
-    // Add a book to inventory
+    @Override
     public void addBook(Book book) {
         inv.get("available").put(book.getIsbn(), book);
         System.out.println("Book added: " + book);
     }
 
-    // Remove a book from inventory
+    @Override
     public void removeBook(Book book) {
         for (String category : inv.keySet()) {
             if (inv.get(category).remove(book.getIsbn()) != null) {
@@ -40,10 +36,14 @@ public class Inventory {
         System.out.println("Book not found: " + book);
     }
 
+    @Override
     public Map<String, Map<String, Book>> getInv() {
         return inv;
     }
 
+    public Inventory getInventory() {
+        return this;
+    }
 //    public void setInv(Map<String, Map<String, Book>> inv) {
 //        this.inv = inv;
 //    }
